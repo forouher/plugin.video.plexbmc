@@ -293,7 +293,7 @@ class Plex:
                     printDebug.info("GDM discovery completed")
 
                     for device in gdm_server_name:
-                        new_server=PlexMediaServer(name=device['serverName'],uri="http://"+settings.get_setting('ipaddress')+":"+settings.get_setting('port'), discovery='discovery', uuid=device['uuid'])
+                        new_server=PlexMediaServer(name=device['serverName'],uri="http://"+device['server']+":"+device['port'], discovery='discovery', uuid=device['uuid'])
                         new_server.set_user(self.effective_user)
                         new_server.set_token(self.effective_token)
 

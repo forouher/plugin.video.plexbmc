@@ -135,7 +135,7 @@ class PlexMediaServer:
     def set_local_uri(self, uris):
         self.local_uri=uris
 
-    def set_best_address(self, uri):
+    def set_best_uri(self, uri):
         self.access_uri = uri
 
     def find_uri_match(self, uri):
