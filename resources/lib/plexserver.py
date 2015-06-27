@@ -135,8 +135,14 @@ class PlexMediaServer:
     def set_local_uri(self, uris):
         self.local_uri=uris
 
-    def set_best_address(self, uri):
+    def set_best_uri(self, uri):
         self.access_uri = uri
+
+    def is_encrypted(self):
+        if self.external_uri is not None and self.external_uri.startswith('https'):
+            return True
+        else:
+            return False
 
     def find_uri_match(self, uri):
         if uri == self.external_uri or uri in self.local_uri:

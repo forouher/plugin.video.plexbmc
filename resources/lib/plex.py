@@ -293,7 +293,7 @@ class Plex:
                     printDebug.info("GDM discovery completed")
 
                     for device in gdm_server_name:
-                        new_server=PlexMediaServer(name=device['serverName'],uri="http://"+settings.get_setting('ipaddress')+":"+settings.get_setting('port'), discovery='discovery', uuid=device['uuid'])
+                        new_server=PlexMediaServer(name=device['serverName'],uri="http://"+device['server']+":"+device['port'], discovery='discovery', uuid=device['uuid'])
                         new_server.set_user(self.effective_user)
                         new_server.set_token(self.effective_token)
 
@@ -385,9 +385,12 @@ class Plex:
                 self.server_list[server.get_uuid()]=server
         else:
             printDebug.info("Found existing server %s %s" % (existing.get_name(), existing.get_uuid()))
-            existing.set_best_uri(server.get_uri())
-            existing.refresh()
-            self.server_list[existing.get_uuid()]=existing
+
+            # GDM cannot (easily) handle encrypted servers. so leave them be
+            if not existing.is_encrypted:
+                existing.set_best_uri(server.get_uri())
+                existing.refresh()
+                self.server_list[existing.get_uuid()]=existing
 
         return 
 
